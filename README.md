@@ -1,5 +1,3 @@
-# Caption-Generator
-
 1. Prepare photo and text data for training a deep learning model.
 
 
@@ -9,7 +7,7 @@
 3. Evaluate a train caption generation model and use it to caption entirely new photographs.
 
 
-Dataset:
+###### Dataset:
     Flickr8k_Dataset.zip (1 Gigabyte) An archive of all photographs.
     Flickr8k_text.zip (2.2 Megabytes) An archive of all text descriptions for photographs.
 
@@ -23,13 +21,13 @@ The dataset has a pre-defined training dataset (6,000 images), development datas
 
 One measure that can be used to evaluate the skill of the model are BLEU scores
 
-Dataset Request form. https://forms.illinois.edu/sec/1713398
+###### Dataset Request form. https://forms.illinois.edu/sec/1713398
 
 
 
 We will use a pre-trained model to interpret the content of the photos. In this case, it is VGG model that won the ImageNet competition in 2014.
 
-Keras provides this pre-trained model directly. Note, the first time you use this model, Keras will download the model weights from the Internet, which are about 500 Megabytes.
+----Keras provides this pre-trained model directly. Note, the first time you use this model, Keras will download the model weights from the Internet, which are about 500 Megabytes-----
 
 
 We pre-compute the “photo features” using the pre-trained model and save them to file.
@@ -38,31 +36,31 @@ Load these features later and feed them into our model as the interpretation of 
 
 Remove the last layer from the loaded model, as this is the model used to predict a classification for a photo. We are interested in the internal representation of the photo right before a classification is made. These are the “features” that the model has extracted from the photo.
 
-extract_features() that, given a directory name, will load each photo, prepare it for VGG, and collect the predicted features from the VGG model. The image features are a 1-dimensional 4,096 element vector.
+**extract_features()** that, given a directory name, will load each photo, prepare it for VGG, and collect the predicted features from the VGG model. The image features are a 1-dimensional 4,096 element vector.
 
 
 
-Prepare Text Data
+###### Prepare Text Data
 
 The dataset contains multiple descriptions for each photograph and the text of the descriptions requires some minimal cleaning.
 
-load_descriptions() - given the loaded document text, will return a dictionary of photo identifiers to descriptions.
+**load_descriptions()** - given the loaded document text, will return a dictionary of photo identifiers to descriptions.
 
 
 
 
-Clean the description text
+###### Clean the description text
 
 clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
-
+**
     Convert all words to lowercase.
     Remove all punctuation.
     Remove all words that are one character or less in length (e.g. ‘a’).
     Remove all words with numbers in them.
+**
 
 
-
-clean_descriptions() function that, given the dictionary of image identifiers to descriptions, steps through each description and cleans the text.
+**clean_descriptions()** function that, given the dictionary of image identifiers to descriptions, steps through each description and cleans the text.
 
 Ideally, we want a vocabulary that is both expressive and as small as possible. A smaller vocabulary will result in a smaller model that will train faster.
 
@@ -70,24 +68,23 @@ Ideally, we want a vocabulary that is both expressive and as small as possible. 
 We transform the clean descriptions into a set and print its size to get an idea of the size of our dataset vocabulary.
 
 
-save_descriptions() - Finally, we can save the dictionary of image identifiers and descriptions to a new file named descriptions.txt, with one image identifier and description per line.
+**save_descriptions()** - Finally, we can save the dictionary of image identifiers and descriptions to a new file named descriptions.txt, with one image identifier and description per line.
 
 
 
 
 
 
-Develop Deep Learning Model
+###### Develop Deep Learning Model
 
 In this section, we will define the deep learning model and fit it on the training dataset.
 
 This section is divided into the following parts:
-
+**
     Loading Data.
     Defining the Model.
     Fitting the Model.
-    Complete Example.
-
+**
 
 The model we will develop will generate a caption given a photo, and the caption will be generated one word at a time. The sequence of previously generated words will be provided as input. Therefore, we will need a ‘first word’ to kick-off the generation process and a ‘last word‘ to signal the end of the caption.
 
@@ -103,13 +100,13 @@ Each description will be split into words. The model will be provided one word a
 
 
 	
-X1,		X2 (text sequence), 						              y (word)
-photo	startseq, 									                    little
-photo	startseq, little,							                    girl
-photo	startseq, little, girl, 					              running
-photo	startseq, little, girl, running, 			              in
-photo	startseq, little, girl, running, in, 		          field
-photo	startseq, little, girl, running, in, field,       endseq
+**X1,     X2 (text sequence), 								y (word)**
+photo	startseq, 									little
+photo	startseq, little,								girl
+photo	startseq, little, girl, 							running
+photo	startseq, little, girl, running, 						in
+photo	startseq, little, girl, running, in, 						field
+photo	startseq, little, girl, running, in, field, 					endseq
 
 
 Later, when the model is used to generate descriptions, the generated words will be concatenated and recursively provided as input to generate a caption for an image.
@@ -124,18 +121,16 @@ The output data will therefore be a one-hot encoded version of each word, repres
 
 
 We will describe the model in three parts:
+    **Photo Feature Extractor** -  This is a 16-layer VGG model pre-trained on the ImageNet dataset. We have pre-processed the photos with the VGG model (without the output layer) and will use the extracted features predicted by this model as input.
+    **Sequence Processor** -  This is a word embedding layer for handling the text input, followed by a Long Short-Term Memory (LSTM) recurrent neural network layer.
+    **Decoder (for lack of a better name)** -  Both the feature extractor and sequence processor output a fixed-length vector. These are merged together and processed by a Dense layer to make a final prediction.
+    **Embedding layer** :  [https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work](https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work) 
+             **LSTM** :    [https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation](https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation)
 
-    Photo Feature Extractor. This is a 16-layer VGG model pre-trained on the ImageNet dataset. We have pre-processed the photos with the VGG model (without the output layer) and will use the extracted features predicted by this model as input.
-    Sequence Processor. This is a word embedding layer for handling the text input, followed by a Long Short-Term Memory (LSTM) recurrent neural network layer.
-    Decoder (for lack of a better name). Both the feature extractor and sequence processor output a fixed-length vector. These are merged together and processed by a Dense layer to make a final prediction.
+   **Embedding(vocab_size, 256, mask_zero=True)
+   LSTM(256)**
 
-    Embedding layer :  https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work 
-    LSTM : https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation
-
-    Embedding(vocab_size, 256, mask_zero=True)
-    LSTM(256)
-
-    Embedding table is 
+   Embedding table is 
 +------------+------------+
 |   index    |  Embedding |
 +------------+------------+
@@ -161,21 +156,8 @@ LSTM :
 
 Decoder:
 	The Decoder layer is used as the output layer which is used to generate the predicted next word given the initial part of the sequence and the CNN combined.
-+---------------------------------------------------------------------------------------------------------------------------+
-|CNN_4096_output----->0.5 Dropout-------->Dense(256)-------->added with lstm output                                         |
-|						   	                                                                                                            |
-|                                      +(plus)                                                                              |
-|                                                                                                                           |
-|Input(length of max length sentence(in training set))-------->Embedding_layer(Size of each vector is                       |    |256)----->Dropout(0.5)-------->LSTM------>added with CNN output                                                            |
-+---------------------------------------------------------------------------------------------------------------------------+
 
+CNN_4096_output----->0.5 Dropout-------->Dense(256)-------->added with lstm output
+						   	+(plus)
 
-																										  
-	+---------+    +---------+	 +---------+     			 +-----------+ 256-dim o/p +------------+
-	|LSTMCell1|-->|LSTMCell2|-->|LSTMCell3|--->.....-->|LSTMCell_34|------------>|add lstm_o/p|-->dense2->dense3
-	|			    |	   |			   |	 |			   |					 |       	   |			       | + CNN o/p  |			        ^
-	+---------+	   +---------+	 +---------+	    		 +-----------+    		     +-------------+			      |
-		  ^					      ^				      ^																		
-		  |				        |				      |                                                                 <next_word>
-	  <Padded0>			 <starseq>			 <word1>                                       
-
+Input(length of max length sentence(in training set))-------->Embedding_layer(Size of each vector is 256)----->Dropout(0.5)-------->LSTM------>added with CNN output
