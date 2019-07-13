@@ -7,7 +7,7 @@
 3. Evaluate a train caption generation model and use it to caption entirely new photographs.
 
 
-** Dataset**:
+**Dataset**:
     Flickr8k_Dataset.zip (1 Gigabyte) An archive of all photographs.
     Flickr8k_text.zip (2.2 Megabytes) An archive of all text descriptions for photographs.
 
@@ -20,7 +20,7 @@ The dataset has a pre-defined training dataset (6,000 images), development datas
 
 One measure that can be used to evaluate the skill of the model are BLEU scores
 
-** Dataset Request form**: [https://forms.illinois.edu/sec/1713398](https://forms.illinois.edu/sec/1713398)
+**Dataset Request form**: [https://forms.illinois.edu/sec/1713398](https://forms.illinois.edu/sec/1713398)
 
 
 
@@ -116,14 +116,18 @@ The output data will therefore be a one-hot encoded version of each word, repres
 
 
 
-We will describe the model in three parts:
+We will describe the model in three parts:<br />
     **Photo Feature Extractor** -  This is a 16-layer VGG model pre-trained on the ImageNet dataset. We have pre-processed the photos with the VGG model (without the output layer) and will use the extracted features predicted by this model as input.
+    <br />
     **Sequence Processor** -  This is a word embedding layer for handling the text input, followed by a Long Short-Term Memory (LSTM) recurrent neural network layer.
+    <br />
     **Decoder (for lack of a better name)** -  Both the feature extractor and sequence processor output a fixed-length vector. These are merged together and processed by a Dense layer to make a final prediction.
+    <br />
     **Embedding layer** :  [https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work](https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work) 
-             **LSTM** :    [https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation](https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation)
+    <br />
+    **LSTM** :    [https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation](https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation)
 
-   **Embedding(vocab_size, 256, mask_zero=True)**<br />
+   **Embedding(vocab_size, 256, mask_zero=True)** <br />
    **LSTM(256)**
 
    Embedding table is 
