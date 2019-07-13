@@ -98,6 +98,9 @@ Keras provides the Tokenizer class that can learn this mapping from the loaded d
 
 Each description will be split into words. The model will be provided one word and the photo and generate the next word. Then the first two words of the description will be provided to the model as input with the image to generate the next word. This is how the model will be trained.
 
+![img](https://imgur.com/BIMUjmA)
+
+
 -=0=0345=20=4-305=20345=-0234=-50
 	
 X1,     X2 (text sequence), &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;	(word)<br/>
