@@ -7,7 +7,7 @@
 3. Evaluate a train caption generation model and use it to caption entirely new photographs.
 
 
-** Dataset:**
+** Dataset**:
     Flickr8k_Dataset.zip (1 Gigabyte) An archive of all photographs.
     Flickr8k_text.zip (2.2 Megabytes) An archive of all text descriptions for photographs.
 
@@ -20,7 +20,7 @@ The dataset has a pre-defined training dataset (6,000 images), development datas
 
 One measure that can be used to evaluate the skill of the model are BLEU scores
 
-** Dataset Request form:** [https://forms.illinois.edu/sec/1713398](https://forms.illinois.edu/sec/1713398)
+** Dataset Request form**: [https://forms.illinois.edu/sec/1713398](https://forms.illinois.edu/sec/1713398)
 
 
 
@@ -39,7 +39,7 @@ Remove the last layer from the loaded model, as this is the model used to predic
 
 
 
-** Prepare Text Data **
+**Prepare Text Data**
 
 The dataset contains multiple descriptions for each photograph and the text of the descriptions requires some minimal cleaning.
 
@@ -48,15 +48,15 @@ The dataset contains multiple descriptions for each photograph and the text of t
 
 
 
-** Clean the description text**
+**Clean the description text**
 
-clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
+Clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
 
 
-Convert all words to lowercase.
-**    Remove all punctuation.**
-**    Remove all words that are one character or less in length (e.g. ‘a’).**
-**    Remove all words with numbers in them.**
+**Convert all words to lowercase.**
+**Remove all punctuation.**
+**Remove all words that are one character or less in length (e.g. ‘a’).**
+**Remove all words with numbers in them.**
 
 
 
@@ -81,9 +81,9 @@ In this section, we will define the deep learning model and fit it on the traini
 
 This section is divided into the following parts:
 
-    Loading Data.<br />
-    Defining the Model.<br />
-    Fitting the Model.<br />
+    Loading Data.
+    Defining the Model.
+    Fitting the Model.
 
 
 The model we will develop will generate a caption given a photo, and the caption will be generated one word at a time. The sequence of previously generated words will be provided as input. Therefore, we will need a ‘first word’ to kick-off the generation process and a ‘last word‘ to signal the end of the caption.
@@ -123,7 +123,7 @@ We will describe the model in three parts:
     **Embedding layer** :  [https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work](https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work) 
              **LSTM** :    [https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation](https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation)
 
-   **Embedding(vocab_size, 256, mask_zero=True)**
+   **Embedding(vocab_size, 256, mask_zero=True)**<br />
    **LSTM(256)**
 
    Embedding table is 
