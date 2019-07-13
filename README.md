@@ -7,13 +7,12 @@
 3. Evaluate a train caption generation model and use it to caption entirely new photographs.
 
 
-###### Dataset:
+** Dataset:**
     Flickr8k_Dataset.zip (1 Gigabyte) An archive of all photographs.
     Flickr8k_text.zip (2.2 Megabytes) An archive of all text descriptions for photographs.
 
-
-    Flickr8k_Dataset: Contains 8092 photographs in JPEG format.
-    Flickr8k_text: Contains a number of files containing different sources of descriptions for the photographs.
+   Flickr8k_Dataset: Contains 8092 photographs in JPEG format.
+   Flickr8k_text: Contains a number of files containing different sources of descriptions for the photographs.
 
 
 The dataset has a pre-defined training dataset (6,000 images), development dataset (1,000 images), and test dataset (1,000 images).
@@ -21,7 +20,7 @@ The dataset has a pre-defined training dataset (6,000 images), development datas
 
 One measure that can be used to evaluate the skill of the model are BLEU scores
 
-###### Dataset Request form. https://forms.illinois.edu/sec/1713398
+** Dataset Request form:** [https://forms.illinois.edu/sec/1713398](https://forms.illinois.edu/sec/1713398)
 
 
 
@@ -40,7 +39,7 @@ Remove the last layer from the loaded model, as this is the model used to predic
 
 
 
-###### Prepare Text Data
+** Prepare Text Data **
 
 The dataset contains multiple descriptions for each photograph and the text of the descriptions requires some minimal cleaning.
 
@@ -49,15 +48,16 @@ The dataset contains multiple descriptions for each photograph and the text of t
 
 
 
-###### Clean the description text
+** Clean the description text**
 
 clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
 
-**    Convert all words to lowercase.**<>
+
+Convert all words to lowercase.
 **    Remove all punctuation.**
 **    Remove all words that are one character or less in length (e.g. ‘a’).**
 **    Remove all words with numbers in them.**
-**
+
 
 
 **clean_descriptions()** function that, given the dictionary of image identifiers to descriptions, steps through each description and cleans the text.
