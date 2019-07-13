@@ -92,7 +92,7 @@ We will use the strings ‘startseq‘ and ‘endseq‘ for this purpose. These 
 
 The description text will need to be encoded to numbers before it can be presented to the model as in input or compared to the model’s predictions. ie - create a consistent mapping from words to unique integer values.
 
-Keras provides the Tokenizer class that can learn this mapping from the loaded description data.
+Keras provides the **Tokenizer class** that can learn this **mapping from the loaded description data**.
 
 
 
@@ -103,7 +103,7 @@ Each description will be split into words. The model will be provided one word a
 
 
 
--=0=0345=20=4-305=20345=-0234=-50
+
 	
 X1,     X2 (text sequence), &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;	(word)<br/>
 photo	startseq, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 	little<br/>
@@ -117,9 +117,9 @@ photo	startseq, little, girl, running, in, field, &nbsp;   &nbsp;   &nbsp;   &nb
 Later, when the model is used to generate descriptions, the generated words will be concatenated and recursively provided as input to generate a caption for an image.
 
 
-The function named create_sequences(), given the tokenizer, a maximum sequence length, and the dictionary of all descriptions and photos, will transform the data into input-output pairs of data for training the model. There are two input arrays to the model: one for photo features and one for the encoded text. There is one output for the model which is the encoded next word in the text sequence.
+The function named **create_sequences()**, given the tokenizer, a maximum sequence length, and the dictionary of all descriptions and photos, will transform the data into input-output pairs of data for training the model. There are two input arrays to the model: one for photo features and one for the encoded text. There is one output for the model which is the encoded next word in the text sequence.
 
-The input text is encoded as integers, which will be fed to a word embedding layer. The photo features will be fed directly to another part of the model. The model will output a prediction, which will be a probability distribution over all words in the vocabulary.
+The **input text is encoded as integers, which will be fed to a word embedding layer**. The photo features will be fed directly to another part of the model. The model will output a prediction, which will be a probability distribution over all words in the vocabulary.
 
 The output data will therefore be a one-hot encoded version of each word, representing an idealized probability distribution with 0 values at all word positions except the actual word position, which has a value of 1.
 
@@ -132,8 +132,8 @@ We will describe the model in three parts:
     **Embedding layer** :  [https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work](https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work) 
              **LSTM** :    [https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation](https://stackoverflow.com/questions/53966446/lstm-architecture-in-keras-implementation)
 
-   **Embedding(vocab_size, 256, mask_zero=True)
-   LSTM(256)**
+   **Embedding(vocab_size, 256, mask_zero=True)**
+   **LSTM(256)**
 
    Embedding table is 
    
@@ -149,15 +149,12 @@ LSTM :
 	Length of output vector from each LSTM cell is 256.
 	Total LSTM cells are equal (33/34) to the length of the sentence with maximum words.
 
-	The LSTM layer is used as an encoder layer meaning that it is used as an input layer to take the initial part of the caption(sequence).
+The LSTM layer is used as an encoder layer meaning that it is used as an input layer to take the initial part of the caption(sequence).
 
 Decoder:
 	The Decoder layer is used as the output layer which is used to generate the predicted next word given the initial part of the sequence and the CNN combined.
 
-CNN_4096_output----->0.5 Dropout-------->Dense(256)-------->added with lstm output
-						   	+(plus)
-
-Input(length of max length sentence(in training set))-------->Embedding_layer(Size of each vector is 256)----->Dropout(0.5)-------->LSTM------>added with CNN output
+![Screenshot 2019-07-13 at 11 18 18 PM](https://user-images.githubusercontent.com/24625231/61174914-8a102e00-a5c4-11e9-90a1-3dbc37fdade2.jpg)
 
 
 
