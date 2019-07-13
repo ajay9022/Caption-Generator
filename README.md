@@ -135,6 +135,7 @@ We will describe the model in three parts:<br />
 ![Screenshot 2019-07-13 at 8 12 05 PM](https://user-images.githubusercontent.com/24625231/61174770-6f3cba00-a5c2-11e9-8615-3d2ec0c3ef11.jpg)
 
 <br />
+
 **Embedding** : <br />
 
     Every word is associated with an index by order of appearance in our training dataset.
