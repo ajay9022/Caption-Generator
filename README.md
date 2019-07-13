@@ -98,7 +98,9 @@ Keras provides the Tokenizer class that can learn this mapping from the loaded d
 
 Each description will be split into words. The model will be provided one word and the photo and generate the next word. Then the first two words of the description will be provided to the model as input with the image to generate the next word. This is how the model will be trained.
 
-![img](https://imgur.com/BIMUjmA)
+
+![Screenshot 2019-07-13 at 8 12 12 PM](https://user-images.githubusercontent.com/24625231/61174776-8ed3e280-a5c2-11e9-8cb0-6f2e2a187ec2.jpg)
+
 
 
 -=0=0345=20=4-305=20345=-0234=-50
@@ -134,17 +136,9 @@ We will describe the model in three parts:
    LSTM(256)**
 
    Embedding table is 
-+------------+------------+
-|   index    |  Embedding |
-+------------+------------+
-|     0      | [1.2, 3.1] |
-|     1      | [0.1, 4.2] |
-|     2      | [1.0, 3.1] |
-|     3      | [0.3, 2.1] |
-|     4      | [2.2, 1.4] |
-|     5      | [0.7, 1.7] |
-|     6      | [4.1, 2.0] |
-+------------+------------+
+   
+![Screenshot 2019-07-13 at 8 12 05 PM](https://user-images.githubusercontent.com/24625231/61174770-6f3cba00-a5c2-11e9-8615-3d2ec0c3ef11.jpg)
+
 
 Embedding : 
 	Every word is associated with an index by order of appearance in our training dataset.
@@ -164,3 +158,9 @@ CNN_4096_output----->0.5 Dropout-------->Dense(256)-------->added with lstm outp
 						   	+(plus)
 
 Input(length of max length sentence(in training set))-------->Embedding_layer(Size of each vector is 256)----->Dropout(0.5)-------->LSTM------>added with CNN output
+
+
+
+
+![Screenshot 2019-07-13 at 8 12 19 PM](https://user-images.githubusercontent.com/24625231/61174778-92676980-a5c2-11e9-8f31-750aacf73f89.jpg)
+
