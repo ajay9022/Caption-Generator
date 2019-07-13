@@ -53,10 +53,10 @@ The dataset contains multiple descriptions for each photograph and the text of t
 Clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
 
 
-**Convert all words to lowercase.**
-**Remove all punctuation.**
-**Remove all words that are one character or less in length (e.g. ‘a’).**
-**Remove all words with numbers in them.**
+	Convert all words to lowercase.
+	Remove all punctuation.
+	Remove all words that are one character or less in length (e.g. ‘a’).
+	Remove all words with numbers in them.
 
 
 
@@ -117,11 +117,11 @@ The output data will therefore be a one-hot encoded version of each word, repres
 
 
 We will describe the model in three parts:<br />
-    **Photo Feature Extractor** -  This is a 16-layer VGG model pre-trained on the ImageNet dataset. We have pre-processed the photos with the VGG model (without the output layer) and will use the extracted features predicted by this model as input.
+    **1. Photo Feature Extractor** -  This is a 16-layer VGG model pre-trained on the ImageNet dataset. We have pre-processed the photos with the VGG model (without the output layer) and will use the extracted features predicted by this model as input.
     <br />
-    **Sequence Processor** -  This is a word embedding layer for handling the text input, followed by a Long Short-Term Memory (LSTM) recurrent neural network layer.
+    **2. Sequence Processor** -  This is a word embedding layer for handling the text input, followed by a Long Short-Term Memory (LSTM) recurrent neural network layer.
     <br />
-    **Decoder (for lack of a better name)** -  Both the feature extractor and sequence processor output a fixed-length vector. These are merged together and processed by a Dense layer to make a final prediction.
+    **3. Decoder (for lack of a better name)** -  Both the feature extractor and sequence processor output a fixed-length vector. These are merged together and processed by a Dense layer to make a final prediction.
     <br />
     **Embedding layer** :  [https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work](https://stats.stackexchange.com/questions/270546/how-does-keras-embedding-layer-work) 
     <br />
@@ -135,18 +135,20 @@ We will describe the model in three parts:<br />
 ![Screenshot 2019-07-13 at 8 12 05 PM](https://user-images.githubusercontent.com/24625231/61174770-6f3cba00-a5c2-11e9-8615-3d2ec0c3ef11.jpg)
 
 <br />
-Embedding : <br />
-	Every word is associated with an index by order of appearance in our training dataset.<br />
-	The vocab_size indicate the length of this table.(No. of words whose vector is to be created)<br />
-	Length of each vector is 256 in the above case.<br />
+**Embedding** : <br />
 
-LSTM :<br />
-	Length of output vector from each LSTM cell is 256.<br />
-	Total LSTM cells are equal (33/34) to the length of the sentence with maximum words.<br />
+    Every word is associated with an index by order of appearance in our training dataset.
+    The vocab_size indicate the length of this table.(No. of words whose vector is to be created)
+    Length of each vector is 256 in the above case.
+
+**LSTM** :<br />
+
+    Length of output vector from each LSTM cell is 256.<br /> 
+    Total LSTM cells are equal (33/34) to the length of the sentence with maximum words.<br />
 
 The LSTM layer is used as an encoder layer meaning that it is used as an input layer to take the initial part of the caption(sequence).
 
-Decoder:<br />
+**Decoder** :<br />
 	The Decoder layer is used as the output layer which is used to generate the predicted next word given the initial part of the sequence and the CNN combined.
 
 ![Screenshot 2019-07-13 at 11 18 18 PM](https://user-images.githubusercontent.com/24625231/61174914-8a102e00-a5c4-11e9-90a1-3dbc37fdade2.jpg)
