@@ -27,7 +27,7 @@ One measure that can be used to evaluate the skill of the model are BLEU scores
 
 We will use a pre-trained model to interpret the content of the photos. In this case, it is VGG model that won the ImageNet competition in 2014.
 
-----Keras provides this pre-trained model directly. Note, the first time you use this model, Keras will download the model weights from the Internet, which are about 500 Megabytes-----
+----Keras provides this pre-trained model directly. Note, the first time you use this model, Keras will download the model weights from the Internet, which are about 500 Megabytes----
 
 
 We pre-compute the “photo features” using the pre-trained model and save them to file.
@@ -52,11 +52,11 @@ The dataset contains multiple descriptions for each photograph and the text of t
 ###### Clean the description text
 
 clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
-**
-    Convert all words to lowercase.
-    Remove all punctuation.
-    Remove all words that are one character or less in length (e.g. ‘a’).
-    Remove all words with numbers in them.
+
+**    Convert all words to lowercase.**
+**    Remove all punctuation.**
+**    Remove all words that are one character or less in length (e.g. ‘a’).**
+**    Remove all words with numbers in them.**
 **
 
 
@@ -98,15 +98,15 @@ Keras provides the Tokenizer class that can learn this mapping from the loaded d
 
 Each description will be split into words. The model will be provided one word and the photo and generate the next word. Then the first two words of the description will be provided to the model as input with the image to generate the next word. This is how the model will be trained.
 
-
+-=0=0345=20=4-305=20345=-0234=-50
 	
-**X1,     X2 (text sequence), 								y (word)**
-photo	startseq, 									little
-photo	startseq, little,								girl
-photo	startseq, little, girl, 							running
-photo	startseq, little, girl, running, 						in
-photo	startseq, little, girl, running, in, 						field
-photo	startseq, little, girl, running, in, field, 					endseq
+X1,     X2 (text sequence), &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;	(word)<br/>
+photo	startseq, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 	little<br/>
+photo	startseq, little,  &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 				girl<br/>
+photo	startseq, little, girl, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 			running<br/>
+photo	startseq, little, girl, running, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 		in<br/>
+photo	startseq, little, girl, running, in, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 	field<br/>
+photo	startseq, little, girl, running, in, field, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; endseq<br/>
 
 
 Later, when the model is used to generate descriptions, the generated words will be concatenated and recursively provided as input to generate a caption for an image.
