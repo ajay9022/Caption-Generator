@@ -53,7 +53,7 @@ The dataset contains multiple descriptions for each photograph and the text of t
 
 clean the text in the following ways in order to reduce the size of the vocabulary of words we will need to work with:
 
-**    Convert all words to lowercase.**
+**    Convert all words to lowercase.**<>
 **    Remove all punctuation.**
 **    Remove all words that are one character or less in length (e.g. ‘a’).**
 **    Remove all words with numbers in them.**
@@ -80,11 +80,11 @@ We transform the clean descriptions into a set and print its size to get an idea
 In this section, we will define the deep learning model and fit it on the training dataset.
 
 This section is divided into the following parts:
-**
-    Loading Data.
-    Defining the Model.
-    Fitting the Model.
-**
+
+    Loading Data.<br />
+    Defining the Model.<br />
+    Fitting the Model.<br />
+
 
 The model we will develop will generate a caption given a photo, and the caption will be generated one word at a time. The sequence of previously generated words will be provided as input. Therefore, we will need a ‘first word’ to kick-off the generation process and a ‘last word‘ to signal the end of the caption.
 
@@ -103,15 +103,6 @@ Each description will be split into words. The model will be provided one word a
 
 
 
-
-	
-X1,     X2 (text sequence), &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;	(word)<br/>
-photo	startseq, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 	little<br/>
-photo	startseq, little,  &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 				girl<br/>
-photo	startseq, little, girl, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 			running<br/>
-photo	startseq, little, girl, running, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 		in<br/>
-photo	startseq, little, girl, running, in, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; 	field<br/>
-photo	startseq, little, girl, running, in, field, &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp; endseq<br/>
 
 
 Later, when the model is used to generate descriptions, the generated words will be concatenated and recursively provided as input to generate a caption for an image.
@@ -139,19 +130,19 @@ We will describe the model in three parts:
    
 ![Screenshot 2019-07-13 at 8 12 05 PM](https://user-images.githubusercontent.com/24625231/61174770-6f3cba00-a5c2-11e9-8615-3d2ec0c3ef11.jpg)
 
+<br />
+Embedding : <br />
+	Every word is associated with an index by order of appearance in our training dataset.<br />
+	The vocab_size indicate the length of this table.(No. of words whose vector is to be created)<br />
+	Length of each vector is 256 in the above case.<br />
 
-Embedding : 
-	Every word is associated with an index by order of appearance in our training dataset.
-	The vocab_size indicate the length of this table.(No. of words whose vector is to be created)
-	Length of each vector is 256 in the above case.
-
-LSTM :
-	Length of output vector from each LSTM cell is 256.
-	Total LSTM cells are equal (33/34) to the length of the sentence with maximum words.
+LSTM :<br />
+	Length of output vector from each LSTM cell is 256.<br />
+	Total LSTM cells are equal (33/34) to the length of the sentence with maximum words.<br />
 
 The LSTM layer is used as an encoder layer meaning that it is used as an input layer to take the initial part of the caption(sequence).
 
-Decoder:
+Decoder:<br />
 	The Decoder layer is used as the output layer which is used to generate the predicted next word given the initial part of the sequence and the CNN combined.
 
 ![Screenshot 2019-07-13 at 11 18 18 PM](https://user-images.githubusercontent.com/24625231/61174914-8a102e00-a5c4-11e9-90a1-3dbc37fdade2.jpg)
