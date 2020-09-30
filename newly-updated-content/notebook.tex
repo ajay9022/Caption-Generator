@@ -1,0 +1,1617 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{gncp-dupli}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{pickle} \PY{k}{import} \PY{n}{dump}
+        \PY{k+kn}{from} \PY{n+nn}{pickle} \PY{k}{import} \PY{n}{load}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{import} \PY{n+nn}{string}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Model}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{applications}\PY{n+nn}{.}\PY{n+nn}{vgg16} \PY{k}{import} \PY{n}{VGG16}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k}{import} \PY{n}{img\PYZus{}to\PYZus{}array}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k}{import} \PY{n}{load\PYZus{}img}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{applications}\PY{n+nn}{.}\PY{n+nn}{vgg16} \PY{k}{import} \PY{n}{preprocess\PYZus{}input}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{Tokenizer}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{np\PYZus{}utils} \PY{k}{import} \PY{n}{to\PYZus{}categorical}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{sequence} \PY{k}{import} \PY{n}{pad\PYZus{}sequences}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{ModelCheckpoint}
+        
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Embedding}\PY{p}{,} \PY{n}{LSTM}\PY{p}{,} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}\PY{p}{,} \PY{n}{Input}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers}\PY{n+nn}{.}\PY{n+nn}{merge} \PY{k}{import} \PY{n}{add}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{plot\PYZus{}model}
+        
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{translate}\PY{n+nn}{.}\PY{n+nn}{bleu\PYZus{}score} \PY{k}{import} \PY{n}{corpus\PYZus{}bleu}
+        
+        
+        
+        \PY{c+c1}{\PYZsh{}jupyter notebook \PYZhy{}\PYZhy{}NotebookApp.iopub\PYZus{}data\PYZus{}rate\PYZus{}limit=1.0e10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{model} \PY{o}{=} \PY{n}{VGG16}\PY{p}{(}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+input\_1 (InputLayer)         (None, 224, 224, 3)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block1\_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block1\_conv2 (Conv2D)        (None, 224, 224, 64)      36928     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block1\_pool (MaxPooling2D)   (None, 112, 112, 64)      0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block2\_conv1 (Conv2D)        (None, 112, 112, 128)     73856     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block2\_conv2 (Conv2D)        (None, 112, 112, 128)     147584    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block2\_pool (MaxPooling2D)   (None, 56, 56, 128)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_conv1 (Conv2D)        (None, 56, 56, 256)       295168    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_conv2 (Conv2D)        (None, 56, 56, 256)       590080    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_conv3 (Conv2D)        (None, 56, 56, 256)       590080    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_pool (MaxPooling2D)   (None, 28, 28, 256)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_conv1 (Conv2D)        (None, 28, 28, 512)       1180160   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_conv2 (Conv2D)        (None, 28, 28, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_conv3 (Conv2D)        (None, 28, 28, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_pool (MaxPooling2D)   (None, 14, 14, 512)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_conv1 (Conv2D)        (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_conv2 (Conv2D)        (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_conv3 (Conv2D)        (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_pool (MaxPooling2D)   (None, 7, 7, 512)         0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+flatten (Flatten)            (None, 25088)             0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+fc1 (Dense)                  (None, 4096)              102764544 
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+fc2 (Dense)                  (None, 4096)              16781312  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+predictions (Dense)          (None, 1000)              4097000   
+=================================================================
+Total params: 138,357,544
+Trainable params: 138,357,544
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{model}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+        \PY{n}{model} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{inputs}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{inputs}\PY{p}{,} \PY{n}{outputs}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+input\_1 (InputLayer)         (None, 224, 224, 3)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block1\_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block1\_conv2 (Conv2D)        (None, 224, 224, 64)      36928     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block1\_pool (MaxPooling2D)   (None, 112, 112, 64)      0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block2\_conv1 (Conv2D)        (None, 112, 112, 128)     73856     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block2\_conv2 (Conv2D)        (None, 112, 112, 128)     147584    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block2\_pool (MaxPooling2D)   (None, 56, 56, 128)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_conv1 (Conv2D)        (None, 56, 56, 256)       295168    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_conv2 (Conv2D)        (None, 56, 56, 256)       590080    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_conv3 (Conv2D)        (None, 56, 56, 256)       590080    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block3\_pool (MaxPooling2D)   (None, 28, 28, 256)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_conv1 (Conv2D)        (None, 28, 28, 512)       1180160   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_conv2 (Conv2D)        (None, 28, 28, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_conv3 (Conv2D)        (None, 28, 28, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block4\_pool (MaxPooling2D)   (None, 14, 14, 512)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_conv1 (Conv2D)        (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_conv2 (Conv2D)        (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_conv3 (Conv2D)        (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+block5\_pool (MaxPooling2D)   (None, 7, 7, 512)         0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+flatten (Flatten)            (None, 25088)             0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+fc1 (Dense)                  (None, 4096)              102764544 
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+fc2 (Dense)                  (None, 4096)              16781312  
+=================================================================
+Total params: 134,260,544
+Trainable params: 134,260,544
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZsq{}description\PYZsq{} in link mlmastery = \PYZsq{}mapping\PYZsq{} in this code which are dictionaries of \PYZob{}id:[desc1,desc2,desc3]\PYZcb{}}
+        \PY{k}{def} \PY{n+nf}{inputimage}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+            \PY{n}{features} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+            \PY{n}{processed\PYZus{}imagescount} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+                \PY{n}{comp\PYZus{}filename} \PY{o}{=} \PY{n}{directory}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{filename}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{comp\PYZus{}filename}\PY{p}{)}
+                \PY{n}{image}\PY{o}{=}\PY{n}{load\PYZus{}img}\PY{p}{(}\PY{n}{comp\PYZus{}filename}\PY{p}{,}\PY{n}{target\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{,}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{image}\PY{o}{=}\PY{n}{img\PYZus{}to\PYZus{}array}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{size}\PY{p}{)}
+                \PY{n}{image}\PY{o}{=}\PY{n}{image}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{size}\PY{p}{)}
+                \PY{n}{image}\PY{o}{=}\PY{n}{preprocess\PYZus{}input}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{size}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}}
+                \PY{n}{filename} \PY{o}{=} \PY{n}{filename}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            
+                \PY{n}{prediction} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                
+                \PY{n}{processed\PYZus{}imagescount}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{processed\PYZus{}imagescount = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{processed\PYZus{}imagescount}\PY{p}{)}
+            
+                \PY{n}{features}\PY{p}{[}\PY{n}{filename}\PY{p}{]} \PY{o}{=} \PY{n}{prediction}
+            
+                \PY{c+c1}{\PYZsh{}print(type(prediction))}
+                \PY{c+c1}{\PYZsh{}print(prediction.shape)}
+                \PY{c+c1}{\PYZsh{}print(prediction.argmax(axis=1))}
+                
+            \PY{k}{return} \PY{n}{features}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{h}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{directory} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Flicker8k\PYZus{}Dataset}\PY{l+s+s2}{\PYZdq{}}
+        \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+            \PY{n}{h}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1} 
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{h}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+8091
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{ls}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+BS.ipynb             Untitled2.ipynb      model.png
+\textcolor{ansi-blue}{Flicker8k\_Dataset}/   cleanedcaptions.txt  sele.ipynb
+\textcolor{ansi-blue}{Flickr8k\_text}/       \textcolor{ansi-blue}{fakeimg}/             submission.csv
+Newint.ipynb         features.pkl         tokenizer.pkl
+Untitled.ipynb       gncp.ipynb
+Untitled1.ipynb      gncp2.ipynb
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{directory = \PYZdq{}Flicker8k\PYZus{}Dataset\PYZdq{}\PYZsh{}\PYZdq{}Flicker8k\PYZus{}Dataset\PYZdq{}}
+        \PY{l+s+sd}{features = inputimage(directory)}
+        \PY{l+s+sd}{\PYZsh{}saving features}
+        \PY{l+s+sd}{dump(features,open(\PYZdq{}features.pkl\PYZdq{},\PYZdq{}wb\PYZdq{}))}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} '\textbackslash{}ndirectory = "Flicker8k\_Dataset"\#"Flicker8k\_Dataset"\textbackslash{}nfeatures = inputimage(directory)\textbackslash{}n\#saving features\textbackslash{}ndump(features,open("features.pkl","wb"))\textbackslash{}n'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}run all above}
+        \PY{n}{features} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 8091
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}loading data from Flickr8k.token.txt}
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}data}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+            \PY{n}{file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{text} \PY{o}{=} \PY{n}{file}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+            \PY{n}{file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{text}
+        
+        \PY{n}{filename} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Flickr8k\PYZus{}text/Flickr8k.token.txt}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}data}\PY{p}{(}\PY{n}{filename}\PY{p}{)}
+        \PY{n}{data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}mapping image and all its captions}
+        
+        \PY{k}{def} \PY{n+nf}{mapping}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{n}{img\PYZus{}data\PYZus{}map} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+            \PY{n}{t}\PY{o}{=}\PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}\PY{c+c1}{\PYZsh{}iterate till 2nd last element}
+                \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}
+                \PY{c+c1}{\PYZsh{}print(line)}
+                \PY{n}{token} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}print(token)}
+                \PY{n}{img\PYZus{}id} \PY{o}{=} \PY{n}{token}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{img\PYZus{}desc} \PY{o}{=} \PY{n}{token}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} 
+                \PY{c+c1}{\PYZsh{}print(img\PYZus{}id,\PYZdq{} \PYZhy{}\PYZgt{} \PYZdq{},img\PYZus{}desc)}
+                \PY{n}{img\PYZus{}desc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{img\PYZus{}desc}\PY{p}{)}
+        
+                \PY{n}{img\PYZus{}id\PYZus{}} \PY{o}{=} \PY{n}{img\PYZus{}id}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{}print(img\PYZus{}id\PYZus{})}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{img\PYZus{}id\PYZus{}}\PY{p}{,}\PY{n}{img\PYZus{}desc}\PY{p}{)}        
+                \PY{k}{if} \PY{n}{img\PYZus{}id\PYZus{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{img\PYZus{}data\PYZus{}map}\PY{p}{:}
+                    \PY{n}{img\PYZus{}data\PYZus{}map}\PY{p}{[}\PY{n}{img\PYZus{}id\PYZus{}}\PY{p}{]}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+                \PY{n}{img\PYZus{}data\PYZus{}map}\PY{p}{[}\PY{n}{img\PYZus{}id\PYZus{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{img\PYZus{}desc}\PY{p}{)}
+                
+            \PY{k}{return} \PY{n}{img\PYZus{}data\PYZus{}map}\PY{p}{,}\PY{n}{t}
+        \PY{n}{t}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{mapping}\PY{p}{,}\PY{n}{t} \PY{o}{=} \PY{n}{mapping}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}print(type(imgid\PYZus{}data\PYZus{}map))}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{mapping}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{  }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}data cleaning}
+        \PY{k}{def} \PY{n+nf}{clean\PYZus{}descriptions}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{mapping}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}lowercase}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}print(type(mapping[i]))}
+                    \PY{c+c1}{\PYZsh{}print(type(mapping[i][j]))}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+                    \PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{translate}\PY{p}{(}\PY{n+nb}{str}\PY{o}{.}\PY{n}{maketrans}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{string}\PY{o}{.}\PY{n}{punctuation}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{w}\PY{o}{.}\PY{n}{isalpha}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}    }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{mapping} \PY{o}{=} \PY{n}{clean\PYZus{}descriptions}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{mapping}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{b} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sdf  , sd 100 df}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}\PYZsq{} \PYZsq{}.join(w for w in mapping[i][j] if w.isalpha())}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{b}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{w}\PY{o}{.}\PY{n}{isalpha}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 'sdf sd df'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}\PY{p}{:}
+             \PY{n}{vocab}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{mapping}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{words}\PY{o}{=}\PY{n}{mapping}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+                     \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                         \PY{n}{vocab}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+             \PY{k}{return} \PY{n}{vocab}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{vocab}\PY{o}{=}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}vocab}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{save\PYZus{}mapping}\PY{p}{(}\PY{n}{mapping}\PY{p}{,}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+            \PY{n}{element}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+            \PY{n}{tot}\PY{o}{=}\PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{img}\PY{p}{,}\PY{n}{descs} \PY{o+ow}{in} \PY{n}{mapping}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{desc} \PY{o+ow}{in} \PY{n}{descs}\PY{p}{:}
+                    \PY{n}{tot}\PY{o}{=}\PY{n}{tot}\PY{o}{+}\PY{l+m+mi}{1}
+                    \PY{n}{element}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{img}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{desc}\PY{p}{)}
+            \PY{n}{data}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{element}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(element)}
+            \PY{n}{file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{file}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{n}{file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{tot}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{total\PYZus{}descs}\PY{o}{=}\PY{n}{save\PYZus{}mapping}\PY{p}{(}\PY{n}{mapping}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleanedcaptions.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} 8092
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{total\PYZus{}descs}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} 40460
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{vocab}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} 8357
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}get the img without extension}
+        \PY{k}{def} \PY{n+nf}{filename}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+            \PY{n}{files}\PY{o}{=}\PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+            \PY{n}{file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{text} \PY{o}{=} \PY{n}{file}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+            \PY{n}{file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            
+            \PY{n}{lst} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+            \PY{n}{lst}\PY{o}{=}\PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{lst}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(lst[i],\PYZsq{}\PYZbs{}n\PYZsq{})}
+                \PY{n}{lst}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{lst}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{lst}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+            \PY{k}{return} \PY{n}{lst}
+            \PY{c+c1}{\PYZsh{}return files}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{train\PYZus{}id}\PY{o}{=}\PY{n}{filename}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flickr8k\PYZus{}text/Flickr\PYZus{}8k.trainImages.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flickr8k\PYZus{}text/Flickr\PYZus{}8k.trainImages.txt}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} 'Flickr8k\_text/Flickr\_8k.trainImages.txt'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{\PYZsh{}return dict of a }
+        \PY{l+s+sd}{\PYZob{}}
+        \PY{l+s+sd}{    image\PYZus{}id : [\PYZhy{}\PYZhy{}\PYZhy{},\PYZhy{}\PYZhy{}\PYZhy{},\PYZhy{}\PYZhy{}\PYZhy{}]}
+        \PY{l+s+sd}{\PYZcb{}}
+        \PY{l+s+sd}{\PYZsh{}for those img\PYZus{}id present in training set. Same can be done for development set ..}
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}details}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{p}{:}
+            \PY{n}{file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{text} \PY{o}{=} \PY{n}{file}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+            \PY{n}{file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(text)}
+            \PY{k}{return} \PY{n}{text}
+        
+        \PY{c+c1}{\PYZsh{}descriptions.txt = cleanedcaptions.txt}
+        
+        
+        \PY{c+c1}{\PYZsh{} We have the train.txt file which contains the imageid of train images. }
+        \PY{c+c1}{\PYZsh{}We make a dictionary named \PYZdq{}specific\PYZus{}clean\PYZus{}desc\PYZdq{} and we take each image id  from the description.txt which we}
+        \PY{c+c1}{\PYZsh{}saved previously which contains \PYZdq{}id : caption\PYZdq{} pair. id can be repeated bcz a single id has may captions.}
+        \PY{c+c1}{\PYZsh{}We loop through each of these pair and if any one of these is present in the train\PYZus{}id then we add \PYZsq{}startseq\PYZsq{} and \PYZsq{}endseq\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}in the caption(from description.txt) and make a \PYZob{}id1:[cap1,cap2,cap3], id2:[cap1,cap2,cap3]\PYZcb{} and  return this dictionary.}
+        
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}desc}\PY{p}{(}\PY{n}{cleanedcaptions}\PY{p}{,}\PY{n}{dataset}\PY{p}{)}\PY{p}{:}
+            \PY{n}{specific\PYZus{}clean\PYZus{}desc} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+            \PY{n}{id\PYZus{}desc\PYZus{}pair} \PY{o}{=} \PY{n}{load\PYZus{}details}\PY{p}{(}\PY{n}{cleanedcaptions}\PY{p}{)}
+            \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{id\PYZus{}desc\PYZus{}pair}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(line)}
+                \PY{n}{imgid} \PY{p}{,} \PY{n}{desc} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}        print(type(desc))}
+                \PY{k}{if} \PY{n}{imgid} \PY{o+ow}{in} \PY{n}{dataset}\PY{p}{:}
+        \PY{c+c1}{\PYZsh{}            print(\PYZdq{}k\PYZdq{})}
+                    \PY{n}{newdesc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{startseq }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{desc}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ endseq}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}            print(newdesc)}
+                    \PY{k}{if} \PY{n}{imgid} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{specific\PYZus{}clean\PYZus{}desc}\PY{p}{:}
+        \PY{c+c1}{\PYZsh{}                print(\PYZdq{}not\PYZdq{})}
+                        \PY{n}{specific\PYZus{}clean\PYZus{}desc}\PY{p}{[}\PY{n}{imgid}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{specific\PYZus{}clean\PYZus{}desc}\PY{p}{[}\PY{n}{imgid}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{newdesc}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}print(specific\PYZus{}clean\PYZus{}desc[imgid])}
+            \PY{k}{return} \PY{n}{specific\PYZus{}clean\PYZus{}desc}
+        \PY{n}{train\PYZus{}descs} \PY{o}{=} \PY{n}{load\PYZus{}desc}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cleanedcaptions.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{train\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}descs}\PY{p}{)}\PY{p}{)}
+        \PY{n}{train\PYZus{}descs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}checking that all of the train images are present in the description.txt as ids.}
+        \PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{train\PYZus{}descs}\PY{p}{:}
+            \PY{k}{if} \PY{n}{key} \PY{o+ow}{in} \PY{n}{train\PYZus{}id}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{}uea\PYZsq{})}
+                \PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}id}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}reloading the features from feature.pkl}
+        \PY{c+c1}{\PYZsh{}We saved the 4096 dimensional vector for each image in the the entire images dataset(contained the images).}
+        \PY{c+c1}{\PYZsh{}features relevant to the train dataset is extracted}
+        \PY{k+kn}{from} \PY{n+nn}{pickle} \PY{k}{import} \PY{n}{load}
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}features}\PY{p}{(}\PY{n}{pklfile}\PY{p}{,} \PY{n}{train\PYZus{}imgid}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{features\PYZus{}vector} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{pklfile}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}load(filehandler) is used to load a given dumped file}
+            \PY{c+c1}{\PYZsh{}print(len(all\PYZus{}features))}
+            \PY{c+c1}{\PYZsh{}print(type(all\PYZus{}features))}
+            \PY{n}{train\PYZus{}features} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{for} \PY{n}{imgid} \PY{o+ow}{in} \PY{n}{train\PYZus{}imgid}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZgt{}\PYZgt{}\PYZsq{},imgid)}
+                \PY{c+c1}{\PYZsh{}print(len(all\PYZus{}features[imgid]))}
+                \PY{c+c1}{\PYZsh{}print(train\PYZus{}features[imgid]) \PYZsh{}}
+                \PY{n}{train\PYZus{}features}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}} \PY{n}{imgid} \PY{p}{:} \PY{n}{features\PYZus{}vector}\PY{p}{[}\PY{n}{imgid}\PY{p}{]} \PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{features\PYZus{}vector}\PY{p}{[}\PY{n}{imgid}\PY{p}{]}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}adding features of train image ids to a dictionary}
+        
+            \PY{k}{return} \PY{n}{train\PYZus{}features}
+                            
+        
+        \PY{n}{train\PYZus{}features} \PY{o}{=} \PY{n}{load\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}given a dictionary of \PYZob{}id1:[cap1,cap2,cap3], id2:[cap1,cap2,cap3]\PYZcb{} (this we made for the train set where ids }
+        \PY{c+c1}{\PYZsh{}are train set images id and different captions associated with an id), create a list of all the caps. ie [cap1,cap2,cap3]}
+        \PY{c+c1}{\PYZsh{}refer for https://github.com/keras\PYZhy{}team/keras/issues/7551}
+        \PY{k}{def} \PY{n+nf}{to\PYZus{}list}\PY{p}{(}\PY{n}{dictof\PYZus{}train\PYZus{}idcap}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{text\PYZus{}descs} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{for} \PY{n}{ids} \PY{o+ow}{in} \PY{n}{dictof\PYZus{}train\PYZus{}idcap}\PY{p}{:}
+                \PY{k}{for} \PY{n}{caption} \PY{o+ow}{in} \PY{n}{dictof\PYZus{}train\PYZus{}idcap}\PY{p}{[}\PY{n}{ids}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{text\PYZus{}descs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{caption}\PY{p}{)}
+            \PY{k}{return} \PY{n}{text\PYZus{}descs}
+        
+        \PY{k}{def} \PY{n+nf}{create\PYZus{}tokenizer}\PY{p}{(}\PY{n}{dictof\PYZus{}train\PYZus{}idcap}\PY{p}{)}\PY{p}{:}
+            \PY{n}{lines} \PY{o}{=} \PY{n}{to\PYZus{}list}\PY{p}{(}\PY{n}{dictof\PYZus{}train\PYZus{}idcap}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}    print(type(lines))}
+        \PY{c+c1}{\PYZsh{}    print(lines)}
+         
+            \PY{n}{tokenizer} \PY{o}{=} \PY{n}{Tokenizer}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tokenizer}\PY{o}{.}\PY{n}{fit\PYZus{}on\PYZus{}texts}\PY{p}{(}\PY{n}{lines}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{)}
+         
+                
+        \PY{n}{tokenizer} \PY{o}{=} \PY{n}{create\PYZus{}tokenizer}\PY{p}{(}\PY{n}{train\PYZus{}descs}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(tokenizer)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<keras\_preprocessing.text.Tokenizer object at 0x1a372e1a90>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{tokenizer}\PY{o}{.}\PY{n}{word\PYZus{}index}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}total vocab size is 8357 and train vocab size is 7266 which means that training set caption has lesser no. of words}
+        \PY{c+c1}{\PYZsh{}and we may see unseen words in test, valid sets}
+        \PY{n}{vocab\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{vocab}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{vocab\PYZus{}size}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+8357
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{train\PYZus{}vocab\PYZus{}size}  \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{tokenizer}\PY{o}{.}\PY{n}{word\PYZus{}index}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+        \PY{c+c1}{\PYZsh{}to check why 1 is added got to https://machinelearningmastery.com/use\PYZhy{}word\PYZhy{}embedding\PYZhy{}layers\PYZhy{}deep\PYZhy{}learning\PYZhy{}keras/ check under }
+        \PY{c+c1}{\PYZsh{}2. Keras Embedding Layer}
+        \PY{n}{train\PYZus{}vocab\PYZus{}size}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} 7266
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{X1,		X2 (text sequence), 						y (word)}
+        \PY{l+s+sd}{photo	startseq, 									little}
+        \PY{l+s+sd}{photo	startseq, little,							girl}
+        \PY{l+s+sd}{photo	startseq, little, girl, 					running}
+        \PY{l+s+sd}{photo	startseq, little, girl, running, 			in}
+        \PY{l+s+sd}{photo	startseq, little, girl, running, in, 		field}
+        \PY{l+s+sd}{photo	startseq, little, girl, running, in, field, endseq}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} '\textbackslash{}nX1,\textbackslash{}t\textbackslash{}tX2 (text sequence), \textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}ty (word)\textbackslash{}nphoto\textbackslash{}tstartseq, \textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}tlittle\textbackslash{}nphoto\textbackslash{}tstartseq, little,\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}tgirl\textbackslash{}nphoto\textbackslash{}tstartseq, little, girl, \textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}t\textbackslash{}trunning\textbackslash{}nphoto\textbackslash{}tstartseq, little, girl, running, \textbackslash{}t\textbackslash{}t\textbackslash{}tin\textbackslash{}nphoto\textbackslash{}tstartseq, little, girl, running, in, \textbackslash{}t\textbackslash{}tfield\textbackslash{}nphoto\textbackslash{}tstartseq, little, girl, running, in, field, endseq\textbackslash{}n'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{maxlensentence}\PY{p}{(}\PY{n}{train}\PY{p}{)}\PY{p}{:}
+            \PY{n}{mx} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n+nb}{id} \PY{o+ow}{in} \PY{n}{train}\PY{p}{:}
+                \PY{k}{for} \PY{n}{sentence} \PY{o+ow}{in} \PY{n}{train}\PY{p}{[}\PY{n+nb}{id}\PY{p}{]}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}print(type(sentence))}
+                    \PY{c+c1}{\PYZsh{}print(type(sentence.split()))}
+                    \PY{n}{mx}\PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{mx}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sentence}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{mx}
+        \PY{n}{maxlen} \PY{o}{=} \PY{n}{maxlensentence}\PY{p}{(}\PY{n}{train\PYZus{}descs}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{maxlen}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+33
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}it iterates over all the train\PYZus{}descs(which contain \PYZob{}id:[desc1,desc2,desc3]\PYZcb{} of only train dataset)}
+        \PY{c+c1}{\PYZsh{} and for each for each id we pick each of its descriptions and divide it into}
+        \PY{c+c1}{\PYZsh{}\PYZdq{}multiple input sequences\PYZdq{} and the predicted sequence.}
+        \PY{c+c1}{\PYZsh{}eg \PYZhy{} [1,2,3,4,5]}
+        \PY{c+c1}{\PYZsh{}[1],[2]}
+        \PY{c+c1}{\PYZsh{}[1,2], [3]}
+        \PY{c+c1}{\PYZsh{}[1,2,3], [4]}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}[1,2,3,4], [5]}
+        \PY{c+c1}{\PYZsh{} we need:}
+        \PY{c+c1}{\PYZsh{}the tokenizer to convert each word to a number}
+        \PY{c+c1}{\PYZsh{}feature\PYZus{}vector(4096) \PYZsh{}train\PYZus{}features is a dictionary and not a list. \PYZob{}id:[4096 element],id:[4096 element]\PYZcb{}}
+        \PY{c+c1}{\PYZsh{}dictionary containing the train \PYZob{}id:[desc1,desc2,desc3]\PYZcb{} which is used to loop through}
+        \PY{c+c1}{\PYZsh{}maxlen to pad the smaller sentences}
+        \PY{c+c1}{\PYZsh{}mapping contain mapping of all ids and description in \PYZob{}id:[desc1,desc2,desc3]\PYZcb{} format.}
+        \PY{k}{def} \PY{n+nf}{create\PYZus{}sequences}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{train\PYZus{}descs}\PY{p}{,}\PY{n}{train\PYZus{}features}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}\PY{p}{:}
+            \PY{n}{X1}\PY{p}{,} \PY{n}{X2}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{descs} \PY{o+ow}{in} \PY{n}{train\PYZus{}descs}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{desc} \PY{o+ow}{in} \PY{n}{descs}\PY{p}{:}
+                    
+                    \PY{c+c1}{\PYZsh{}print(type(desc))}
+                    \PY{n}{seqofnumber} \PY{o}{=} \PY{n}{tokenizer}\PY{o}{.}\PY{n}{texts\PYZus{}to\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{desc}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{c+c1}{\PYZsh{}print(\PYZsq{}seqofnumber = \PYZsq{},seqofnumber)}
+        
+                    
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seqofnumber}\PY{p}{)}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}\PYZsh{}edit : len(seqofnumber)\PYZhy{}1}
+                        \PY{n}{inseq}\PY{p}{,} \PY{n}{outseq} \PY{o}{=} \PY{n}{seqofnumber}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{seqofnumber}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{inseq}\PY{p}{,}\PY{n}{outseq}\PY{p}{)}
+                        \PY{n}{inseq} \PY{o}{=} \PY{n}{pad\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{inseq}\PY{p}{]}\PY{p}{,}\PY{n}{maxlen} \PY{o}{=} \PY{n}{maxlen}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                        \PY{n}{outseq} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{p}{[}\PY{n}{outseq}\PY{p}{]}\PY{p}{,}\PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{n}{train\PYZus{}vocab\PYZus{}size}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outseq}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{outseq}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{)}
+                        \PY{n}{X1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}features}\PY{p}{[}\PY{n}{key}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}train\PYZus{}features is a dictionary and not a list.}
+                        \PY{c+c1}{\PYZsh{}train\PYZus{}features = \PYZob{}\PYZsq{}id\PYZsq{} : [], \PYZsq{}id\PYZsq{}: []\PYZcb{}}
+                        \PY{n}{X2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{inseq}\PY{p}{)}
+                        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{outseq}\PY{p}{)}
+                        \PY{c+c1}{\PYZsh{}print(\PYZdq{}\PYZbs{}ny :\PYZdq{},y.shape)}
+                        
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X2}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+        \PY{n}{X1train}\PY{p}{,} \PY{n}{X2train}\PY{p}{,} \PY{n}{ytrain} \PY{o}{=} \PY{n}{create\PYZus{}sequences}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{train\PYZus{}descs}\PY{p}{,}\PY{n}{train\PYZus{}features}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} array([0., 0., 0., 1., 0.], dtype=float32)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ytrain}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} (305617, 7266)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{t}  \PY{o}{=} \PY{n}{Tokenizer}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fit\PYZus{}text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The earth is an awesome place live}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{t}\PY{o}{.}\PY{n}{fit\PYZus{}on\PYZus{}texts}\PY{p}{(}\PY{n}{fit\PYZus{}text}\PY{p}{)}
+        \PY{n}{test\PYZus{}text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The earth is an great place live}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{sequences} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{texts\PYZus{}to\PYZus{}sequences}\PY{p}{(}\PY{n}{test\PYZus{}text}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sequences : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sequences}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{word\PYZus{}index : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{t}\PY{o}{.}\PY{n}{word\PYZus{}index}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}[] specifies : 1. space b/w the words in the test\PYZus{}text    2. letters that have not occured in fit\PYZus{}text}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sequences :  [[3], [4], [1], [], [1], [2], [8], [3], [4], [], [5], [6], [], [2], [9], [], [], [8], [1], [2], [3], [], [13], [7], [2], [14], [1], [], [7], [5], [15], [1]] 
+
+word\_index :  \{'e': 1, 'a': 2, 't': 3, 'h': 4, 'i': 5, 's': 6, 'l': 7, 'r': 8, 'n': 9, 'w': 10, 'o': 11, 'm': 12, 'p': 13, 'c': 14, 'v': 15\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{t}  \PY{o}{=} \PY{n}{Tokenizer}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fit\PYZus{}text} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The earth is an awesome place live}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{t}\PY{o}{.}\PY{n}{fit\PYZus{}on\PYZus{}texts}\PY{p}{(}\PY{n}{fit\PYZus{}text}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}fit\PYZus{}on\PYZus{}texts fits on sentences when list of sentences is passed to fit\PYZus{}on\PYZus{}texts() function. }
+        \PY{c+c1}{\PYZsh{}ie \PYZhy{} fit\PYZus{}on\PYZus{}texts( [ sent1, sent2, sent3,....sentN ] )}
+        
+        \PY{c+c1}{\PYZsh{}Similarly, list of sentences/single sentence in a list must be passed into texts\PYZus{}to\PYZus{}sequences.}
+        \PY{n}{test\PYZus{}text1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The earth is an great place live}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{test\PYZus{}text2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The is my program}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{sequences} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{texts\PYZus{}to\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{test\PYZus{}text1}\PY{p}{,} \PY{n}{test\PYZus{}text2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sequences : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sequences}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}index : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{t}\PY{o}{.}\PY{n}{word\PYZus{}index}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}texts\PYZus{}to\PYZus{}sequences() returns list of list. ie \PYZhy{} [ [] ]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sequences :  [[1, 2, 3, 4, 6, 7], [1, 3]] 
+
+word\_index :  \{'the': 1, 'earth': 2, 'is': 3, 'an': 4, 'awesome': 5, 'place': 6, 'live': 7\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ex1:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Ex2: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ex1: [[1. 0. 0.]
+ [0. 0. 1.]
+ [0. 1. 0.]
+ [0. 0. 1.]
+ [1. 0. 0.]] 
+
+Ex2: 
+[[1. 0. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [1. 0. 0. 0. 0.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Embedding(7, 2, input\PYZus{}length=5)}
+        
+        \PY{c+c1}{\PYZsh{}The first argument (7) is the number of distinct words in the training set. }
+        \PY{c+c1}{\PYZsh{}The second argument (2) indicates the size of the embedding vectors.}
+        \PY{c+c1}{\PYZsh{}The input\PYZus{}length argumet, of course, determines the size of each input sequence.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{test\PYZus{}id}\PY{o}{=}\PY{n}{filename}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flickr8k\PYZus{}text/Flickr\PYZus{}8k.devImages.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}loadpath}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{test\PYZus{}desc} \PY{o}{=} \PY{n}{load\PYZus{}desc}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cleanedcaptions.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{test\PYZus{}id}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}test\PYZus{}features = }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{test\PYZus{}desc}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{test\PYZus{}features} \PY{o}{=} \PY{n}{load\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}filepath = \PYZsq{}model\PYZhy{}ep\PYZob{}epoch:03d\PYZcb{}\PYZhy{}loss\PYZob{}loss:.3f\PYZcb{}\PYZhy{}val\PYZus{}loss\PYZob{}val\PYZus{}loss:.3f\PYZcb{}.h5\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}checkpoint = ModelCheckpoint(filepath, monitor=\PYZsq{}val\PYZus{}loss\PYZsq{}, verbose=1, save\PYZus{}best\PYZus{}only=True, mode=\PYZsq{}min\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{X1test}\PY{p}{,} \PY{n}{X2test}\PY{p}{,} \PY{n}{ytest} \PY{o}{=} \PY{n}{create\PYZus{}sequences}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,} \PY{n}{test\PYZus{}desc}\PY{p}{,} \PY{n}{test\PYZus{}features}\PY{p}{,} \PY{n}{maxlen} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{model}\PY{p}{(}\PY{n}{vocab\PYZus{}size}\PY{p}{,} \PY{n}{max\PYZus{}length}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{input1\PYZus{}vgg} \PY{o}{=} \PY{n}{Input}\PY{p}{(}\PY{n}{shape} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4096}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+            \PY{n}{dropout\PYZus{}vgg} \PY{o}{=} \PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{(}\PY{n}{input1\PYZus{}vgg}\PY{p}{)}
+            \PY{n}{dense\PYZus{}vgg} \PY{o}{=} \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{dropout\PYZus{}vgg}\PY{p}{)}
+            
+            \PY{n}{input2\PYZus{}word} \PY{o}{=} \PY{n}{Input}\PY{p}{(}\PY{n}{shape} \PY{o}{=} \PY{p}{(}\PY{n}{max\PYZus{}length}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+            \PY{n}{embed\PYZus{}word} \PY{o}{=} \PY{n}{Embedding}\PY{p}{(}\PY{n}{vocab\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{256}\PY{p}{,} \PY{n}{mask\PYZus{}zero} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{(}\PY{n}{input2\PYZus{}word}\PY{p}{)}
+            \PY{n}{dropout\PYZus{}word} \PY{o}{=} \PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{(}\PY{n}{embed\PYZus{}word}\PY{p}{)}
+            \PY{n}{lstm\PYZus{}word} \PY{o}{=} \PY{n}{LSTM}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{)}\PY{p}{(}\PY{n}{dropout\PYZus{}word}\PY{p}{)}
+            
+            \PY{n}{adder} \PY{o}{=} \PY{n}{add}\PY{p}{(}\PY{p}{[}\PY{n}{dense\PYZus{}vgg}\PY{p}{,}\PY{n}{lstm\PYZus{}word}\PY{p}{]}\PY{p}{)}
+            \PY{n}{dense} \PY{o}{=} \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{adder}\PY{p}{)}
+            
+            \PY{n}{final} \PY{o}{=} \PY{n}{Dense}\PY{p}{(}\PY{n}{vocab\PYZus{}size}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{dense}\PY{p}{)}
+            
+            \PY{n}{model} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n+nb}{input}\PY{o}{=}\PY{p}{[}\PY{n}{input1\PYZus{}vgg}\PY{p}{,}\PY{n}{input2\PYZus{}word}\PY{p}{]}\PY{p}{,} \PY{n}{output}\PY{o}{=}\PY{p}{[}\PY{n}{final}\PY{p}{]}\PY{p}{)}
+            
+            \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plot\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{to\PYZus{}file}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{show\PYZus{}shapes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{model}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}vocab\PYZus{}size}\PY{p}{,} \PY{n}{maxlen}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/ajay/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:17: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=[<tf.Tenso{\ldots}, outputs=[<tf.Tenso{\ldots})`
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                    Output Shape         Param \#     Connected to                     
+==================================================================================================
+input\_3 (InputLayer)            (None, 33)           0                                            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+input\_2 (InputLayer)            (None, 4096)         0                                            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+embedding\_1 (Embedding)         (None, 33, 256)      1860096     input\_3[0][0]                    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dropout\_1 (Dropout)             (None, 4096)         0           input\_2[0][0]                    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dropout\_2 (Dropout)             (None, 33, 256)      0           embedding\_1[0][0]                
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_1 (Dense)                 (None, 256)          1048832     dropout\_1[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+lstm\_1 (LSTM)                   (None, 256)          525312      dropout\_2[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+add\_1 (Add)                     (None, 256)          0           dense\_1[0][0]                    
+                                                                 lstm\_1[0][0]                     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_2 (Dense)                 (None, 256)          65792       add\_1[0][0]                      
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_3 (Dense)                 (None, 7266)         1867362     dense\_2[0][0]                    
+==================================================================================================
+Total params: 5,367,394
+Trainable params: 5,367,394
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+None
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}model.fit(([X1train,X2train]),ytrain,epochs=3,verbose=2,callbacks=[checkpoint], validation\PYZus{}data=([X1test,X2test],ytest))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1train.shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{X1train}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2train.shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{X2train}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytrain.shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ytrain}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X1test.shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{X1test}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X2test.shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{X2test}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytest.shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ytrain}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+X1train.shape:  (305617, 4096) 
+
+X2train.shape:  (305617, 33) 
+
+ytrain.shape:  (305617, 7266) 
+
+X1test.shape:  (50835, 4096) 
+
+X2test.shape:  (50835, 33) 
+
+ytest.shape:  (305617, 7266) 
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}sequence}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{descs}\PY{p}{,}\PY{n}{train\PYZus{}feature}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{desc} \PY{o+ow}{in} \PY{n}{descs}\PY{p}{:}
+                \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        
+                \PY{k}{for} \PY{n}{desc} \PY{o+ow}{in} \PY{n}{descs}\PY{p}{:}
+                    \PY{n}{seqofnumber} \PY{o}{=} \PY{n}{tokenizer}\PY{o}{.}\PY{n}{texts\PYZus{}to\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{desc}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seqofnumber}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{inseq} \PY{o}{=} \PY{n}{seqofnumber}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]}
+                        \PY{n}{outseq} \PY{o}{=} \PY{n}{seqofnumber}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                        \PY{n}{inseq} \PY{o}{=} \PY{n}{pad\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{inseq}\PY{p}{]}\PY{p}{,}\PY{n}{maxlen}\PY{o}{=}\PY{n}{maxlen}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+                        \PY{n}{outseq} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{p}{[}\PY{n}{outseq}\PY{p}{]}\PY{p}{,}\PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{train\PYZus{}vocab\PYZus{}size}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                        \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{inseq}\PY{p}{)}
+                        \PY{n}{z}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{outseq}\PY{p}{)}
+                        \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}feature}\PY{p}{)}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+\end{Verbatim}
+
+
+    \#model.fit is occupying a lot of RAM because the entire dataset is fed
+to the model for training \#model.fit\_generator is used to feeding the
+dataset
+
+\#In keras, fit() is much similar to sklearn's fit method, where you
+pass array of features as x values and target as y values. \#You pass
+your whole dataset at once in fit method. Also, use it if you can load
+whole data into your memory (small dataset).
+
+\#In fit\_generator(), you don't pass the x and y directly, instead they
+come from a generator function. \#This is for practical purpose, when
+you have large dataset.
+
+\#so we create sequences for 1 photo at a time and then feed the
+sequence to model.fit\_generator() train it to utilise less RAM.
+
+\#refer for generator function and yield
+https://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do
+\#refer for fit and fit\_generator
+https://datascience.stackexchange.com/questions/34444/what-is-the-difference-between-fit-and-fit-generator-in-keras
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}mygenerator = (x*x for x in range(3))}
+        \PY{c+c1}{\PYZsh{}type(mygenerator)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{data\PYZus{}generator}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{train\PYZus{}descs}\PY{p}{,}\PY{n}{train\PYZus{}features}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}\PY{p}{:}
+            \PY{k}{while} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{k}{for} \PY{n}{ids}\PY{p}{,} \PY{n}{descs} \PY{o+ow}{in} \PY{n}{train\PYZus{}descs}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{feature} \PY{o}{=} \PY{n}{train\PYZus{}features}\PY{p}{[}\PY{n}{ids}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{feature\PYZus{}vector}\PY{p}{,} \PY{n}{inseq}\PY{p}{,} \PY{n}{outseq} \PY{o}{=} \PY{n}{create\PYZus{}sequence}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{descs}\PY{p}{,}\PY{n}{feature}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}
+                    \PY{k}{yield}\PY{p}{[}\PY{p}{[}\PY{n}{feature\PYZus{}vector}\PY{p}{,}\PY{n}{inseq}\PY{p}{]}\PY{p}{,}\PY{n}{outseq}\PY{p}{]}
+        \PY{n}{generator} \PY{o}{=} \PY{n}{data\PYZus{}generator}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{train\PYZus{}descs}\PY{p}{,}\PY{n}{train\PYZus{}features}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{inputs} \PY{p}{,} \PY{n}{outputs} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{data\PYZus{}generator}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{train\PYZus{}descs}\PY{p}{,}\PY{n}{train\PYZus{}features}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(inputs)}
+        \PY{c+c1}{\PYZsh{}print(outputs)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}print(inputs[0])}
+        \PY{c+c1}{\PYZsh{}print(inputs[1])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}print(outputs)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inputs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{inputs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{outputs}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47, 4096)
+(47, 33)
+(47, 7266)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{epochs = 1}
+        \PY{l+s+sd}{for i in range(epochs):}
+        \PY{l+s+sd}{    generator = data\PYZus{}generator(tokenizer,train\PYZus{}descs,train\PYZus{}features,maxlen)}
+        \PY{l+s+sd}{    \PYZsh{} fit for one epoch}
+        \PY{l+s+sd}{    model.fit\PYZus{}generator(generator,epochs=1,verbose=1,steps\PYZus{}per\PYZus{}epoch=133)}
+        \PY{l+s+sd}{    model.save(\PYZsq{}model\PYZus{}\PYZsq{}+i+\PYZsq{}.h5\PYZsq{})}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} "\textbackslash{}nepochs = 1\textbackslash{}nfor i in range(epochs):\textbackslash{}n    generator = data\_generator(tokenizer,train\_descs,train\_features,maxlen)\textbackslash{}n    \# fit for one epoch\textbackslash{}n    model.fit\_generator(generator,epochs=1,verbose=1,steps\_per\_epoch=133)\textbackslash{}n    model.save('model\_'+i+'.h5')\textbackslash{}n"
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}descs}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} 6000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Refer to know about steps\PYZhy{}per\PYZhy{}epochs https://stackoverflow.com/questions/48604149/keras\PYZhy{}fit\PYZhy{}generator\PYZhy{}and\PYZhy{}steps\PYZhy{}per\PYZhy{}epoch}
+        \PY{c+c1}{\PYZsh{}Refer to know about tokenizer https://github.com/keras\PYZhy{}team/keras/issues/7551\PYZsh{}issuecomment\PYZhy{}322105443}
+        \PY{c+c1}{\PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{word\PYZus{}for\PYZus{}id}\PY{p}{(}\PY{n}{integer}\PY{p}{,} \PY{n}{tokenizer}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{word}\PY{p}{,}\PY{n}{index} \PY{o+ow}{in} \PY{n}{tokenizer}\PY{o}{.}\PY{n}{word\PYZus{}index}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{index} \PY{o}{==} \PY{n}{integer}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{word}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}word\PYZus{}for\PYZus{}id(4,tokenizer)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}generates description for a given image by iteratively appending next predicted word to the sentence. }
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}desc}\PY{p}{(}\PY{n}{feature\PYZus{}vector}\PY{p}{,}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{model}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}\PY{p}{:}
+            \PY{n}{sentence} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{startseq}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{maxlen}\PY{p}{)}\PY{p}{:}
+            
+                \PY{n}{seqofnumber} \PY{o}{=} \PY{n}{tokenizer}\PY{o}{.}\PY{n}{texts\PYZus{}to\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{sentence}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{seqofnumber} \PY{o}{=} \PY{n}{pad\PYZus{}sequences}\PY{p}{(}\PY{p}{[}\PY{n}{seqofnumber}\PY{p}{]}\PY{p}{,}\PY{n}{maxlen}\PY{o}{=}\PY{n}{maxlen}\PY{p}{)}
+        
+                \PY{n}{predicted\PYZus{}vector} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{n}{feature\PYZus{}vector}\PY{p}{,}\PY{n}{seqofnumber}\PY{p}{]}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+                \PY{n}{indexed\PYZus{}word} \PY{o}{=} \PY{n}{argmax}\PY{p}{(}\PY{n}{predicted\PYZus{}vector}\PY{p}{)}
+                \PY{n}{word} \PY{o}{=} \PY{n}{word\PYZus{}for\PYZus{}id}\PY{p}{(}\PY{n}{indexed\PYZus{}wor}\PY{p}{,}\PY{n}{tokenizer}\PY{p}{)}
+                
+                \PY{k}{if} \PY{n}{word} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{k}{break}
+                \PY{n}{sentence} \PY{o}{=} \PY{n}{sentence} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{word}
+                \PY{k}{if} \PY{n}{word} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{endseq}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{k}{break}
+        
+            \PY{k}{return} \PY{n}{sentence}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}generate\PYZus{}desc(,tokenizer,model,maxlen)}
+        \PY{k}{def} \PY{n+nf}{p}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{imported successfully}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{s} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sdf sd r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ioerm cscan vd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pqowa lsmx cvx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{n}{d}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{s}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[['sdf', 'sd', 'r'], ['ioerm', 'cscan', 'vd'], ['pqowa', 'lsmx', 'cvx']]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pred\PYZus{}caption} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hello world this is}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{predicted} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{n}{predicted}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pred\PYZus{}caption}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{predicted}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor} }]:} [['hello', 'world', 'this', 'is']]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsq{}description\PYZsq{} in link mlmastery = \PYZsq{}mapping\PYZsq{} in this code which are dictionaries of \PYZob{}id:[desc1,desc2,desc3]\PYZcb{}}
+        \PY{c+c1}{\PYZsh{}check for bleu\PYZus{}score parameters https://stackoverflow.com/questions/40542523/nltk\PYZhy{}corpus\PYZhy{}level\PYZhy{}bleu\PYZhy{}vs\PYZhy{}sentence\PYZhy{}level\PYZhy{}bleu\PYZhy{}score}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{see the no. associated with the below code lines}
+        \PY{l+s+sd}{\PYZsh{}actual codeblock}
+        \PY{l+s+sd}{[\PYZsh{}3}
+        \PY{l+s+sd}{    [\PYZsh{}1              \PYZsh{}many sentences for 1 image}
+        \PY{l+s+sd}{        [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}2 \PYZsh{}these 3 are different reference sentences for just 1 image(many sentences mapped with 1 imageid)}
+        \PY{l+s+sd}{        [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}2}
+        \PY{l+s+sd}{        [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}] \PYZsh{}2}
+        \PY{l+s+sd}{    ],}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    [ \PYZsh{}1            \PYZsh{}many sentences for 2nd image}
+        \PY{l+s+sd}{        [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}2}
+        \PY{l+s+sd}{        [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}2}
+        \PY{l+s+sd}{        [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}] \PYZsh{}2}
+        \PY{l+s+sd}{    ]\PYZsh{}refer}
+        \PY{l+s+sd}{]\PYZsh{}actual codeblock ends}
+        
+        \PY{l+s+sd}{\PYZsh{}predicted codeblock}
+        \PY{l+s+sd}{[\PYZsh{}0}
+        \PY{l+s+sd}{    [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}1st predicted sentence \PYZsh{}5}
+        \PY{l+s+sd}{    [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}2nd predicted sentence \PYZsh{}5}
+        \PY{l+s+sd}{    [\PYZus{}\PYZus{},\PYZus{}\PYZus{},\PYZus{}\PYZus{}],\PYZsh{}3rd predicted sentence \PYZsh{}5}
+        \PY{l+s+sd}{]}
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}model}\PY{p}{(}\PY{n}{mapping}\PY{p}{,}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{maxlen}\PY{p}{,}\PY{n}{model}\PY{p}{,}\PY{n}{feature\PYZus{}vector}\PY{p}{)}\PY{p}{:}
+            \PY{n}{actual}\PY{p}{,}\PY{n}{predicted} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}0}
+            \PY{k}{for} \PY{n}{ids}\PY{p}{,}\PY{n}{descs} \PY{o+ow}{in} \PY{n}{mapping}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}1}
+                \PY{n}{pred\PYZus{}caption} \PY{o}{=} \PY{n}{generate\PYZus{}desc}\PY{p}{(}\PY{n}{feature\PYZus{}vector}\PY{p}{[}\PY{n}{ids}\PY{p}{]}\PY{p}{,}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{model}\PY{p}{,}\PY{n}{maxlen}\PY{p}{)}\PY{c+c1}{\PYZsh{}caption string returned }
+                \PY{k}{for} \PY{n}{desc} \PY{o+ow}{in} \PY{n}{descs}\PY{p}{:}\PY{c+c1}{\PYZsh{}2}
+                    \PY{n}{reference}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{desc}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{actual}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{reference}\PY{p}{)}\PY{c+c1}{\PYZsh{}3}
+                \PY{n}{predicted}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pred\PYZus{}caption}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}5}
+                
+                \PY{c+c1}{\PYZsh{}calculate BLEU scores for 1, 2, 3 and 4 cumulative n\PYZhy{}grams.}
+                \PY{c+c1}{\PYZsh{}A higher score close to 1.0 is better, a score closer to zero is worse.}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLEU\PYZhy{}1: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{corpus\PYZus{}bleu}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{predicted}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLEU\PYZhy{}2: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{corpus\PYZus{}bleu}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{predicted}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLEU\PYZhy{}3: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{corpus\PYZus{}bleu}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{predicted}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLEU\PYZhy{}4: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{corpus\PYZus{}bleu}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{predicted}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}BLEU scores are used in text translation for evaluating translated text against one or more reference translations.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{evaluate\PYZus{}model}\PY{p}{(}\PY{n}{mapping}\PY{p}{,}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{maxlen}\PY{p}{,}\PY{n}{model}\PY{p}{,}\PY{n}{features}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}split() method returns a list of strings after breaking the given string by the specified separator.}
+        \PY{n}{desc\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hi can you run}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DJ Bravo is here}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{his name is gb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+        \PY{n}{references} \PY{o}{=} \PY{p}{[}\PY{n}{d}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{desc\PYZus{}list}\PY{p}{]}
+        \PY{n}{references}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}another alternative of doing the above task}
+        \PY{n}{alternative} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{desc} \PY{o+ow}{in} \PY{n}{desc\PYZus{}list}\PY{p}{:}
+                \PY{n}{alternative}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{desc}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{alternative}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{train\PYZus{}features}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{mapping}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1000268201\PYZus{}693b08cb0e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1000268201\PYZus{}693b08cb0e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1000268201\PYZus{}693b08cb0e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1000268201\PYZus{}693b08cb0e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}inside model.fit [X1train,X2train] X1train is numpy\PYZhy{}array and X2train is numpy\PYZhy{}array}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{When we call \PYZsh{} evaluate model}
+        \PY{l+s+sd}{evaluate\PYZus{}model(model, test\PYZus{}descriptions, test\PYZus{}features, tokenizer, max\PYZus{}length)}
+        
+        \PY{l+s+sd}{we know that test\PYZus{}features  which is a dictionary and contains id and a .}
+        \PY{l+s+sd}{ie \PYZhy{} \PYZob{} id1: [ [ 4096 elements] ], id2: [ [ 4096 elements] ] \PYZcb{}.}
+        
+        \PY{l+s+sd}{Inside evaluate\PYZus{}model() we call \PYZhy{}  generate\PYZus{}desc(model, tokenizer, photos[key], max\PYZus{}length)}
+        
+        \PY{l+s+sd}{where photos[key] is numpy.ndarray and hold the 4096 elements in another numpy.array.}
+        
+        \PY{l+s+sd}{To prove this I ran:}
+        \PY{l+s+sd}{Note: feature is same as photo here, which contain id and its corresponding 4096 vector.}
+        
+        \PY{l+s+sd}{print(type(features[\PYZsq{}1000268201\PYZus{}693b08cb0e\PYZsq{}]))}
+        \PY{l+s+sd}{print(type(features[\PYZsq{}1000268201\PYZus{}693b08cb0e\PYZsq{}][0])}
+        \PY{l+s+sd}{print(features[\PYZsq{}1000268201\PYZus{}693b08cb0e\PYZsq{}].shape)}
+        \PY{l+s+sd}{print(features[\PYZsq{}1000268201\PYZus{}693b08cb0e\PYZsq{}])}
+        
+        \PY{l+s+sd}{and it gives me this output :}
+        
+        \PY{l+s+sd}{numpy.ndarray}
+        \PY{l+s+sd}{numpy.ndarray}
+        \PY{l+s+sd}{(1, 4096)}
+        \PY{l+s+sd}{array([[ 2.5076463, \PYZhy{}0.       , \PYZhy{}0.       , ..., \PYZhy{}0.       , \PYZhy{}0.       ,}
+        \PY{l+s+sd}{        \PYZhy{}0.       ]], dtype=float32)}
+        
+        
+        \PY{l+s+sd}{yhat = model.predict([photo,sequence], verbose=0) }
+        
+        \PY{l+s+sd}{here photo[key] is a  np\PYZhy{}array [ [ 4096 features inside ] ]. ie\PYZhy{} array inside array.}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{reality}
+        \PY{l+s+sd}{photo}
+        \PY{l+s+sd}{[}
+        \PY{l+s+sd}{    [],}
+        \PY{l+s+sd}{    [],}
+        \PY{l+s+sd}{    [],}
+        \PY{l+s+sd}{    []}
+        \PY{l+s+sd}{]}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{In generate\PYZus{}desc, photo is photo[key]. ie since photo = \PYZob{} id1: [ [ 4096 elements] ], id2: [ [ 4096 elements] ] \PYZcb{}}
+        \PY{l+s+sd}{                                            So, photo[key] = [ [ 4096 elements ] ]}
+        \PY{l+s+sd}{so, photo = [ [ 4096 elements ] ]}
+        
+        \PY{l+s+sd}{so, during call to model.predict() inside generate\PYZus{}desc()}
+        \PY{l+s+sd}{we pass [photo,sequence] and hence photo which is [ [ 4096 elements ] ] is correctly passed because during }
+        \PY{l+s+sd}{        model.fit\PYZus{}generator(generator, epochs=1, steps\PYZus{}per\PYZus{}epoch=steps, verbose=1)}
+        \PY{l+s+sd}{        if we print generator we get [x,y] where a is [x1,x2]. }
+        \PY{l+s+sd}{        y is next word to predict and x1 is photo, x2 is sequence of past encountered word.}
+        \PY{l+s+sd}{        To know what is x1,x2(ie\PYZhy{}their type,shape). }
+        \PY{l+s+sd}{        we go into data\PYZus{}generator(), and we can see that it yields/returns [[in\PYZus{}img, in\PYZus{}seq], out\PYZus{}word]}
+        \PY{l+s+sd}{        and see that in\PYZus{}img,in\PYZus{}seq,out\PYZus{}word are returned by create\PYZus{}sequences}
+        \PY{l+s+sd}{        create\PYZus{}sequences() returns np.array(list()),np.array(list()),np.array(list())}
+        \PY{l+s+sd}{        In first, each element is an array and the array contain 4096 elements  }
+        \PY{l+s+sd}{        In second in\PYZus{}img, each element is an array(array of numbers each no. is token\PYZus{}no of a word encountered in previous steps) which can be seen by output  }
+        \PY{l+s+sd}{        In third out\PYZus{}img, each element is a array((initially a number but now an array in which 1 is present at index x where x is number from string seq[i]).}
+        \PY{l+s+sd}{ }
+        \PY{l+s+sd}{                X1.append(train\PYZus{}features[key][0])\PYZsh{}train\PYZus{}features is a dictionary and not a list.}
+        \PY{l+s+sd}{                \PYZsh{}train\PYZus{}features = \PYZob{}\PYZsq{}id\PYZsq{} : [], \PYZsq{}id\PYZsq{}: []\PYZcb{}}
+        \PY{l+s+sd}{                X2.append(inseq)}
+        \PY{l+s+sd}{                y.append(outseq)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{token\PYZus{}filehandler} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tokenizer.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dump}\PY{p}{(}\PY{n}{tokenizer}\PY{p}{,}\PY{n}{token\PYZus{}filehandler}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
